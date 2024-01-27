@@ -12,6 +12,7 @@ export const EducationForm = ({ addEdu }) => {
     location: "",
   });
   const [open, setOpen] = useState(false);
+  const [create, setCreate] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -34,76 +35,93 @@ export const EducationForm = ({ addEdu }) => {
 
   return (
     <form onSubmit={handleSubmit} className=" bg-white rounded-xl p-4">
-      <div className="flex items-center justify-between py-2 cursor-pointer" onClick={() => setOpen(!open)}>
+      <div
+        className="flex items-center justify-between py-2 cursor-pointer"
+        onClick={() => setOpen(!open)}
+      >
         <h3 className="flex items-center gap-4">
           <GraduationSvg />
           <p className="text-xl text-black font-semibold">Education</p>
         </h3>
-        {open ? <ChevronUp /> : <ChevronDown/> }
+        {open ? <ChevronUp /> : <ChevronDown />}
       </div>
-      {open && (
-        <div className="flex flex-col gap-2 mt-4">
-		  <label htmlFor="school" className="flex flex-col gap-2">
-			School
-			<input
-				type="text"
-				placeholder="School"
-				name="school"
-				className="border p-2 rounded-md bg-slate-100 placeholder:text-black focus:outline-slate-300"
-				value={education.school}
-				onChange={handleChange}
-			/>
-		  </label>
-		  <label htmlFor="degree" className="flex flex-col gap-2">
-			Degree
-			<input
-				type="text"
-				placeholder="Degree"
-				name="degree"
-				className="border p-2 rounded-md bg-slate-100 placeholder:text-black focus:outline-slate-300"
-				value={education.degree}
-				onChange={handleChange}
-			/>
-		  </label>
-		  <label htmlFor="startdate" className="flex flex-col gap-2">
-			Start Date
-			<input
-				type="text"
-				placeholder="start date"
-				name="startDate"
-				className="border p-2 rounded-md bg-slate-100 placeholder:text-black focus:outline-slate-300"
-				value={education.startDate}
-				onChange={handleChange}
-			/>
-		  </label>
-		  <label htmlFor="enddate" className="flex flex-col gap-2">
-			End Date
-			<input
-				type="text"
-				placeholder="end date"
-				name="endDate"
-				className="border p-2 rounded-md bg-slate-100 placeholder:text-black focus:outline-slate-300"
-				value={education.endDate}
-				onChange={handleChange}
-			/>
-		  </label>
-		  <label htmlFor="location" className="flex flex-col gap-2">
-			Location
-			<input
-				type="text"
-				placeholder="location"
-				name="location"
-				className="border p-2 rounded-md bg-slate-100 placeholder:text-black focus:outline-slate-300"
-				value={education.location}
-				onChange={handleChange}
-			/>
-		  </label>
-		  <div className="flex gap-10 mt-4">
-			<button type="submit" className="bg-blue-400 px-4 py-1 flex-1">Save</button>				
-			<button className="bg-red-400 px-4 py-1 flex-1" onClick={() => {setOpen(false)}}>Cancel</button>			
-		  </div>
-        </div>
-      )}
+      {open ? (
+        create ? (
+          <div className="flex flex-col gap-2 mt-4">
+            <label htmlFor="school" className="flex flex-col gap-2">
+              School
+              <input
+                type="text"
+                placeholder="School"
+                name="school"
+                className="border p-2 rounded-md bg-slate-100 placeholder:text-black focus:outline-slate-300"
+                value={education.school}
+                onChange={handleChange}
+              />
+            </label>
+            <label htmlFor="degree" className="flex flex-col gap-2">
+              Degree
+              <input
+                type="text"
+                placeholder="Degree"
+                name="degree"
+                className="border p-2 rounded-md bg-slate-100 placeholder:text-black focus:outline-slate-300"
+                value={education.degree}
+                onChange={handleChange}
+              />
+            </label>
+            <label htmlFor="startdate" className="flex flex-col gap-2">
+              Start Date
+              <input
+                type="text"
+                placeholder="start date"
+                name="startDate"
+                className="border p-2 rounded-md bg-slate-100 placeholder:text-black focus:outline-slate-300"
+                value={education.startDate}
+                onChange={handleChange}
+              />
+            </label>
+            <label htmlFor="enddate" className="flex flex-col gap-2">
+              End Date
+              <input
+                type="text"
+                placeholder="end date"
+                name="endDate"
+                className="border p-2 rounded-md bg-slate-100 placeholder:text-black focus:outline-slate-300"
+                value={education.endDate}
+                onChange={handleChange}
+              />
+            </label>
+            <label htmlFor="location" className="flex flex-col gap-2">
+              Location
+              <input
+                type="text"
+                placeholder="location"
+                name="location"
+                className="border p-2 rounded-md bg-slate-100 placeholder:text-black focus:outline-slate-300"
+                value={education.location}
+                onChange={handleChange}
+              />
+            </label>
+            <div className="flex gap-10 mt-4">
+              <button type="submit" className="bg-blue-400 px-4 py-1 flex-1">
+                Save
+              </button>
+              <button
+                className="bg-red-400 px-4 py-1 flex-1"
+                onClick={() => {
+                  setOpen(false);
+				  setCreate(false);
+                }}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div onClick={() => setCreate(true)}>Education</div>
+        )
+      ) : null}
     </form>
   );
 };
@@ -119,7 +137,7 @@ export const EducationList = ({ eduList, editEducation, deleteEducation }) => {
   };
 
   return (
-    <ul>
+    <ul className="bg-white rounded-md p-2">
       {eduList.map((edu, index) => (
         <li key={index}>
           {index === editingIndex ? (
