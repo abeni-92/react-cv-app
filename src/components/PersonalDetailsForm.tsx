@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
-export const PersonalDetailsForm = ({ addDetails }) => {
-  const [personalDetails, setPersonalDetails] = useState({
+export const PersonalDetailsForm = ({ setPersonalDetails }) => {
+  const [personalDetails, setPersonalDetailsLocal] = useState({
     fullName: "",
     email: "",
     phoneNumber: "",
@@ -9,6 +9,10 @@ export const PersonalDetailsForm = ({ addDetails }) => {
   });
 
   const handleChange = (e) => {
+    setPersonalDetailsLocal({
+      ...personalDetails,
+      [e.target.name]: e.target.value,
+    });
     setPersonalDetails({
       ...personalDetails,
       [e.target.name]: e.target.value,
@@ -16,8 +20,8 @@ export const PersonalDetailsForm = ({ addDetails }) => {
   };
 
   return (
-    <div className="py-8 px-6 bg-white rounded-xl">
-      <h2 className="pb-4">Personal Details</h2>
+    <div className="py-8 px-6 text-black bg-white rounded-xl">
+      <h2 className="pb-4 text-2xl">Personal Details</h2>
       <label htmlFor="fullname" className="flex flex-col gap-2">
         FullName
         <input
